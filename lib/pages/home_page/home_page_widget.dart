@@ -46,7 +46,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
           backgroundColor: FlutterFlowTheme.of(context).primary,
           automaticallyImplyLeading: false,
           title: Text(
-            'Page Title',
+            'Posts',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   fontFamily: 'Outfit',
                   color: Colors.white,
@@ -55,18 +55,21 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                 ),
           ),
           actions: [
-            FlutterFlowIconButton(
-              borderRadius: 20.0,
-              borderWidth: 1.0,
-              buttonSize: 40.0,
-              icon: Icon(
-                Icons.add,
-                color: FlutterFlowTheme.of(context).primaryText,
-                size: 24.0,
+            Padding(
+              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 10.0, 0.0),
+              child: FlutterFlowIconButton(
+                borderRadius: 20.0,
+                borderWidth: 1.0,
+                buttonSize: 40.0,
+                icon: Icon(
+                  Icons.add,
+                  color: FlutterFlowTheme.of(context).primaryText,
+                  size: 24.0,
+                ),
+                onPressed: () async {
+                  await SQLiteManager.instance.insertcustomer();
+                },
               ),
-              onPressed: () async {
-                await SQLiteManager.instance.insertcustomer();
-              },
             ),
           ],
           centerTitle: false,
