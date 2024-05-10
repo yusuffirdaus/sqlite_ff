@@ -124,34 +124,71 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     itemBuilder: (context, listViewIndex) {
                       final listViewGetAllCustomersRow =
                           listViewGetAllCustomersRowList[listViewIndex];
-                      return ListTile(
-                        leading: const Icon(
-                          Icons.person,
+                      return InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onLongPress: () async {
+                          var confirmDialogResponse = await showDialog<bool>(
+                                context: context,
+                                builder: (alertDialogContext) {
+                                  return AlertDialog(
+                                    title: const Text('Delete data'),
+                                    content: const Text('you will delete this data'),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () => Navigator.pop(
+                                            alertDialogContext, false),
+                                        child: const Text('Cancel'),
+                                      ),
+                                      TextButton(
+                                        onPressed: () => Navigator.pop(
+                                            alertDialogContext, true),
+                                        child: const Text('Confirm'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              ) ??
+                              false;
+                          if (confirmDialogResponse) {
+                            await SQLiteManager.instance.deleteCustomers(
+                              id: listViewGetAllCustomersRow.id!,
+                            );
+                          }
+                        },
+                        child: ListTile(
+                          leading: const Icon(
+                            Icons.person,
+                          ),
+                          title: Text(
+                            listViewGetAllCustomersRow.name,
+                            style: FlutterFlowTheme.of(context)
+                                .titleLarge
+                                .override(
+                                  fontFamily: 'Outfit',
+                                  letterSpacing: 0.0,
+                                ),
+                          ),
+                          subtitle: Text(
+                            '${listViewGetAllCustomersRow.address}, ${listViewGetAllCustomersRow.city}',
+                            style: FlutterFlowTheme.of(context)
+                                .labelMedium
+                                .override(
+                                  fontFamily: 'Outfit',
+                                  letterSpacing: 0.0,
+                                ),
+                          ),
+                          trailing: Icon(
+                            Icons.navigate_next,
+                            color: FlutterFlowTheme.of(context).secondaryText,
+                            size: 20.0,
+                          ),
+                          tileColor:
+                              FlutterFlowTheme.of(context).secondaryBackground,
+                          dense: false,
                         ),
-                        title: Text(
-                          listViewGetAllCustomersRow.id!.toString(),
-                          style:
-                              FlutterFlowTheme.of(context).titleLarge.override(
-                                    fontFamily: 'Outfit',
-                                    letterSpacing: 0.0,
-                                  ),
-                        ),
-                        subtitle: Text(
-                          '${listViewGetAllCustomersRow.address}, ${listViewGetAllCustomersRow.city}',
-                          style:
-                              FlutterFlowTheme.of(context).labelMedium.override(
-                                    fontFamily: 'Outfit',
-                                    letterSpacing: 0.0,
-                                  ),
-                        ),
-                        trailing: Icon(
-                          Icons.swipe,
-                          color: FlutterFlowTheme.of(context).secondaryText,
-                          size: 20.0,
-                        ),
-                        tileColor:
-                            FlutterFlowTheme.of(context).secondaryBackground,
-                        dense: false,
                       );
                     },
                   );
