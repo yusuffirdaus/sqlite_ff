@@ -49,5 +49,13 @@ class SQLiteManager {
         country: country,
       );
 
+  Future deleteCustomers({
+    int? id,
+  }) =>
+      performDeleteCustomers(
+        _database,
+        id: id,
+      );
+
   /// END UPDATE QUERY CALLS
 }

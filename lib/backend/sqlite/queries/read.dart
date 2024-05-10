@@ -24,6 +24,7 @@ class GetAllCustomersRow extends SqliteRow {
   String get name => data['name'] as String;
   String? get address => data['address'] as String?;
   String? get city => data['city'] as String?;
+  int? get id => data['id'] as int?;
 }
 
 /// END GET ALL CUSTOMERS
