@@ -1,4 +1,5 @@
 import '/backend/sqlite/sqlite_manager.dart';
+import '/components/bs_customer_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -67,7 +68,24 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                   size: 24.0,
                 ),
                 onPressed: () async {
-                  Navigator.pop(context);
+                  await showModalBottomSheet(
+                    isScrollControlled: true,
+                    backgroundColor: Colors.transparent,
+                    enableDrag: false,
+                    context: context,
+                    builder: (context) {
+                      return GestureDetector(
+                        onTap: () => _model.unfocusNode.canRequestFocus
+                            ? FocusScope.of(context)
+                                .requestFocus(_model.unfocusNode)
+                            : FocusScope.of(context).unfocus(),
+                        child: Padding(
+                          padding: MediaQuery.viewInsetsOf(context),
+                          child: const BsCustomerWidget(),
+                        ),
+                      );
+                    },
+                  ).then((value) => safeSetState(() {}));
                 },
               ),
             ),
