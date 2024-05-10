@@ -81,7 +81,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                             : FocusScope.of(context).unfocus(),
                         child: Padding(
                           padding: MediaQuery.viewInsetsOf(context),
-                          child: const BsCustomerWidget(),
+                          child: const BsCustomerWidget(
+                            iaEdit: false,
+                          ),
                         ),
                       );
                     },
@@ -129,34 +131,33 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         focusColor: Colors.transparent,
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
-                        onLongPress: () async {
-                          var confirmDialogResponse = await showDialog<bool>(
-                                context: context,
-                                builder: (alertDialogContext) {
-                                  return AlertDialog(
-                                    title: const Text('Delete data'),
-                                    content: const Text('you will delete this data'),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () => Navigator.pop(
-                                            alertDialogContext, false),
-                                        child: const Text('Cancel'),
-                                      ),
-                                      TextButton(
-                                        onPressed: () => Navigator.pop(
-                                            alertDialogContext, true),
-                                        child: const Text('Confirm'),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              ) ??
-                              false;
-                          if (confirmDialogResponse) {
-                            await SQLiteManager.instance.deleteCustomers(
-                              id: listViewGetAllCustomersRow.id!,
-                            );
-                          }
+                        onTap: () async {
+                          await showModalBottomSheet(
+                            isScrollControlled: true,
+                            backgroundColor: Colors.transparent,
+                            enableDrag: false,
+                            context: context,
+                            builder: (context) {
+                              return GestureDetector(
+                                onTap: () => _model.unfocusNode.canRequestFocus
+                                    ? FocusScope.of(context)
+                                        .requestFocus(_model.unfocusNode)
+                                    : FocusScope.of(context).unfocus(),
+                                child: Padding(
+                                  padding: MediaQuery.viewInsetsOf(context),
+                                  child: BsCustomerWidget(
+                                    nameParam: listViewGetAllCustomersRow.name,
+                                    addressParam:
+                                        listViewGetAllCustomersRow.address,
+                                    countryParam:
+                                        listViewGetAllCustomersRow.city,
+                                    iaEdit: true,
+                                    id: listViewGetAllCustomersRow.id,
+                                  ),
+                                ),
+                              );
+                            },
+                          ).then((value) => safeSetState(() {}));
                         },
                         child: ListTile(
                           leading: const Icon(

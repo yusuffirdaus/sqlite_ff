@@ -57,5 +57,19 @@ class SQLiteManager {
         id: id,
       );
 
+  Future updateCustomers({
+    int? id,
+    String? name,
+    String? address,
+    String? country,
+  }) =>
+      performUpdateCustomers(
+        _database,
+        id: id,
+        name: name,
+        address: address,
+        country: country,
+      );
+
   /// END UPDATE QUERY CALLS
 }

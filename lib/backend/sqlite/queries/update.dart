@@ -27,3 +27,19 @@ delete from customers where id = $id
 }
 
 /// END DELETE CUSTOMERS
+
+/// BEGIN UPDATE CUSTOMERS
+Future performUpdateCustomers(
+  Database database, {
+  int? id,
+  String? name,
+  String? address,
+  String? country,
+}) {
+  final query = '''
+update customres set name ='$name', address='$address',country='$country'where  id = $id;
+''';
+  return database.rawQuery(query);
+}
+
+/// END UPDATE CUSTOMERS

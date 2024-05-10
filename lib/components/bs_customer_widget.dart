@@ -11,7 +11,20 @@ import 'bs_customer_model.dart';
 export 'bs_customer_model.dart';
 
 class BsCustomerWidget extends StatefulWidget {
-  const BsCustomerWidget({super.key});
+  const BsCustomerWidget({
+    super.key,
+    this.nameParam,
+    this.addressParam,
+    this.countryParam,
+    required this.iaEdit,
+    this.id,
+  });
+
+  final String? nameParam;
+  final String? addressParam;
+  final String? countryParam;
+  final bool? iaEdit;
+  final int? id;
 
   @override
   State<BsCustomerWidget> createState() => _BsCustomerWidgetState();
@@ -34,13 +47,16 @@ class _BsCustomerWidgetState extends State<BsCustomerWidget>
     super.initState();
     _model = createModel(context, () => BsCustomerModel());
 
-    _model.clonableURLTextController1 ??= TextEditingController();
+    _model.clonableURLTextController1 ??=
+        TextEditingController(text: widget.nameParam);
     _model.clonableURLFocusNode1 ??= FocusNode();
 
-    _model.clonableURLTextController2 ??= TextEditingController();
+    _model.clonableURLTextController2 ??=
+        TextEditingController(text: widget.addressParam);
     _model.clonableURLFocusNode2 ??= FocusNode();
 
-    _model.clonableURLTextController3 ??= TextEditingController();
+    _model.clonableURLTextController3 ??=
+        TextEditingController(text: widget.countryParam);
     _model.clonableURLFocusNode3 ??= FocusNode();
 
     animationsMap.addAll({
@@ -404,19 +420,109 @@ class _BsCustomerWidgetState extends State<BsCustomerWidget>
                                           0.0, 0.0, 4.0, 0.0),
                                       child: FFButtonWidget(
                                         onPressed: () async {
-                                          await SQLiteManager.instance
-                                              .insertcustomer(
-                                            nameparam: _model
-                                                .clonableURLTextController1
-                                                .text,
-                                            address: _model
-                                                .clonableURLTextController2
-                                                .text,
-                                            country: _model
-                                                .clonableURLTextController3
-                                                .text,
-                                          );
-                                          Navigator.pop(context);
+                                          var confirmDialogResponse =
+                                              await showDialog<bool>(
+                                                    context: context,
+                                                    builder:
+                                                        (alertDialogContext) {
+                                                      return AlertDialog(
+                                                        title:
+                                                            const Text('Delete data'),
+                                                        content: const Text(
+                                                            'you will delete this data'),
+                                                        actions: [
+                                                          TextButton(
+                                                            onPressed: () =>
+                                                                Navigator.pop(
+                                                                    alertDialogContext,
+                                                                    false),
+                                                            child:
+                                                                const Text('Cancel'),
+                                                          ),
+                                                          TextButton(
+                                                            onPressed: () =>
+                                                                Navigator.pop(
+                                                                    alertDialogContext,
+                                                                    true),
+                                                            child:
+                                                                const Text('Confirm'),
+                                                          ),
+                                                        ],
+                                                      );
+                                                    },
+                                                  ) ??
+                                                  false;
+                                          if (confirmDialogResponse) {
+                                            await SQLiteManager.instance
+                                                .deleteCustomers(
+                                              id: widget.id!,
+                                            );
+                                            Navigator.pop(context);
+                                          }
+                                        },
+                                        text: 'Delete',
+                                        options: FFButtonOptions(
+                                          height: 50.0,
+                                          padding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  32.0, 0.0, 32.0, 0.0),
+                                          iconPadding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 0.0, 0.0),
+                                          color: FlutterFlowTheme.of(context)
+                                              .tertiary,
+                                          textStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmall
+                                                  .override(
+                                                    fontFamily:
+                                                        'Plus Jakarta Sans',
+                                                    color: Colors.white,
+                                                    letterSpacing: 0.0,
+                                                  ),
+                                          elevation: 2.0,
+                                          borderSide: const BorderSide(
+                                            color: Colors.transparent,
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(40.0),
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 4.0, 0.0),
+                                      child: FFButtonWidget(
+                                        onPressed: () async {
+                                          if (widget.iaEdit!) {
+                                            await SQLiteManager.instance
+                                                .updateCustomers(
+                                              id: widget.id!,
+                                              name: _model
+                                                  .clonableURLTextController1
+                                                  .text,
+                                              address: _model
+                                                  .clonableURLTextController2
+                                                  .text,
+                                              country: widget.countryParam,
+                                            );
+                                            Navigator.pop(context);
+                                          } else {
+                                            await SQLiteManager.instance
+                                                .insertcustomer(
+                                              nameparam: _model
+                                                  .clonableURLTextController1
+                                                  .text,
+                                              address: _model
+                                                  .clonableURLTextController2
+                                                  .text,
+                                              country: _model
+                                                  .clonableURLTextController3
+                                                  .text,
+                                            );
+                                            Navigator.pop(context);
+                                          }
                                         },
                                         text: 'Save',
                                         options: FFButtonOptions(
