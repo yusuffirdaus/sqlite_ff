@@ -46,7 +46,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
           backgroundColor: FlutterFlowTheme.of(context).primary,
           automaticallyImplyLeading: false,
           title: Text(
-            'Posts',
+            'Customer',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   fontFamily: 'Outfit',
                   color: Colors.white,
@@ -67,7 +67,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                   size: 24.0,
                 ),
                 onPressed: () async {
-                  await SQLiteManager.instance.insertcustomer();
+                  Navigator.pop(context);
                 },
               ),
             ),
