@@ -4,7 +4,6 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'home_page_model.dart';
 export 'home_page_model.dart';
 
@@ -125,53 +124,34 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     itemBuilder: (context, listViewIndex) {
                       final listViewGetAllCustomersRow =
                           listViewGetAllCustomersRowList[listViewIndex];
-                      return Slidable(
-                        endActionPane: ActionPane(
-                          motion: const ScrollMotion(),
-                          extentRatio: 0.25,
-                          children: [
-                            SlidableAction(
-                              label: 'Delete',
-                              backgroundColor:
-                                  FlutterFlowTheme.of(context).tertiary,
-                              icon: Icons.share,
-                              onPressed: (_) {
-                                print('SlidableActionWidget pressed ...');
-                              },
-                            ),
-                          ],
+                      return ListTile(
+                        leading: const Icon(
+                          Icons.person,
                         ),
-                        child: ListTile(
-                          leading: const Icon(
-                            Icons.person,
-                          ),
-                          title: Text(
-                            listViewGetAllCustomersRow.id!.toString(),
-                            style: FlutterFlowTheme.of(context)
-                                .titleLarge
-                                .override(
-                                  fontFamily: 'Outfit',
-                                  letterSpacing: 0.0,
-                                ),
-                          ),
-                          subtitle: Text(
-                            '${listViewGetAllCustomersRow.address}, ${listViewGetAllCustomersRow.city}',
-                            style: FlutterFlowTheme.of(context)
-                                .labelMedium
-                                .override(
-                                  fontFamily: 'Outfit',
-                                  letterSpacing: 0.0,
-                                ),
-                          ),
-                          trailing: Icon(
-                            Icons.swipe,
-                            color: FlutterFlowTheme.of(context).secondaryText,
-                            size: 20.0,
-                          ),
-                          tileColor:
-                              FlutterFlowTheme.of(context).secondaryBackground,
-                          dense: false,
+                        title: Text(
+                          listViewGetAllCustomersRow.id!.toString(),
+                          style:
+                              FlutterFlowTheme.of(context).titleLarge.override(
+                                    fontFamily: 'Outfit',
+                                    letterSpacing: 0.0,
+                                  ),
                         ),
+                        subtitle: Text(
+                          '${listViewGetAllCustomersRow.address}, ${listViewGetAllCustomersRow.city}',
+                          style:
+                              FlutterFlowTheme.of(context).labelMedium.override(
+                                    fontFamily: 'Outfit',
+                                    letterSpacing: 0.0,
+                                  ),
+                        ),
+                        trailing: Icon(
+                          Icons.swipe,
+                          color: FlutterFlowTheme.of(context).secondaryText,
+                          size: 20.0,
+                        ),
+                        tileColor:
+                            FlutterFlowTheme.of(context).secondaryBackground,
+                        dense: false,
                       );
                     },
                   );
