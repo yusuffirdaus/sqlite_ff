@@ -38,13 +38,13 @@ class SQLiteManager {
   /// START UPDATE QUERY CALLS
 
   Future insertcustomer({
-    String? name,
+    String? nameparam,
     String? address,
     String? country,
   }) =>
       performInsertcustomer(
         _database,
-        name: name,
+        nameparam: nameparam,
         address: address,
         country: country,
       );

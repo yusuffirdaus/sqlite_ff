@@ -406,7 +406,7 @@ class _BsCustomerWidgetState extends State<BsCustomerWidget>
                                         onPressed: () async {
                                           await SQLiteManager.instance
                                               .insertcustomer(
-                                            name: _model
+                                            nameparam: _model
                                                 .clonableURLTextController1
                                                 .text,
                                             address: _model
