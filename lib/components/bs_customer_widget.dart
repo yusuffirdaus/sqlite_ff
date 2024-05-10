@@ -415,81 +415,82 @@ class _BsCustomerWidgetState extends State<BsCustomerWidget>
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
-                                    Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 4.0, 0.0),
-                                      child: FFButtonWidget(
-                                        onPressed: () async {
-                                          var confirmDialogResponse =
-                                              await showDialog<bool>(
-                                                    context: context,
-                                                    builder:
-                                                        (alertDialogContext) {
-                                                      return AlertDialog(
-                                                        title:
-                                                            const Text('Delete data'),
-                                                        content: const Text(
-                                                            'you will delete this data'),
-                                                        actions: [
-                                                          TextButton(
-                                                            onPressed: () =>
-                                                                Navigator.pop(
-                                                                    alertDialogContext,
-                                                                    false),
-                                                            child:
-                                                                const Text('Cancel'),
-                                                          ),
-                                                          TextButton(
-                                                            onPressed: () =>
-                                                                Navigator.pop(
-                                                                    alertDialogContext,
-                                                                    true),
-                                                            child:
-                                                                const Text('Confirm'),
-                                                          ),
-                                                        ],
-                                                      );
-                                                    },
-                                                  ) ??
-                                                  false;
-                                          if (confirmDialogResponse) {
-                                            await SQLiteManager.instance
-                                                .deleteCustomers(
-                                              id: widget.id!,
-                                            );
-                                            Navigator.pop(context);
-                                          }
-                                        },
-                                        text: 'Delete',
-                                        options: FFButtonOptions(
-                                          height: 50.0,
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  32.0, 0.0, 32.0, 0.0),
-                                          iconPadding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 0.0, 0.0),
-                                          color: FlutterFlowTheme.of(context)
-                                              .tertiary,
-                                          textStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .titleSmall
-                                                  .override(
-                                                    fontFamily:
-                                                        'Plus Jakarta Sans',
-                                                    color: Colors.white,
-                                                    letterSpacing: 0.0,
-                                                  ),
-                                          elevation: 2.0,
-                                          borderSide: const BorderSide(
-                                            color: Colors.transparent,
-                                            width: 1.0,
+                                    if (widget.iaEdit ?? true)
+                                      Padding(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 4.0, 0.0),
+                                        child: FFButtonWidget(
+                                          onPressed: () async {
+                                            var confirmDialogResponse =
+                                                await showDialog<bool>(
+                                                      context: context,
+                                                      builder:
+                                                          (alertDialogContext) {
+                                                        return AlertDialog(
+                                                          title: const Text(
+                                                              'Delete data'),
+                                                          content: const Text(
+                                                              'you will delete this data'),
+                                                          actions: [
+                                                            TextButton(
+                                                              onPressed: () =>
+                                                                  Navigator.pop(
+                                                                      alertDialogContext,
+                                                                      false),
+                                                              child: const Text(
+                                                                  'Cancel'),
+                                                            ),
+                                                            TextButton(
+                                                              onPressed: () =>
+                                                                  Navigator.pop(
+                                                                      alertDialogContext,
+                                                                      true),
+                                                              child: const Text(
+                                                                  'Confirm'),
+                                                            ),
+                                                          ],
+                                                        );
+                                                      },
+                                                    ) ??
+                                                    false;
+                                            if (confirmDialogResponse) {
+                                              await SQLiteManager.instance
+                                                  .deleteCustomers(
+                                                id: widget.id!,
+                                              );
+                                              Navigator.pop(context);
+                                            }
+                                          },
+                                          text: 'Delete',
+                                          options: FFButtonOptions(
+                                            height: 50.0,
+                                            padding:
+                                                const EdgeInsetsDirectional.fromSTEB(
+                                                    32.0, 0.0, 32.0, 0.0),
+                                            iconPadding:
+                                                const EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 0.0),
+                                            color: FlutterFlowTheme.of(context)
+                                                .tertiary,
+                                            textStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmall
+                                                    .override(
+                                                      fontFamily:
+                                                          'Plus Jakarta Sans',
+                                                      color: Colors.white,
+                                                      letterSpacing: 0.0,
+                                                    ),
+                                            elevation: 2.0,
+                                            borderSide: const BorderSide(
+                                              color: Colors.transparent,
+                                              width: 1.0,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(40.0),
                                           ),
-                                          borderRadius:
-                                              BorderRadius.circular(40.0),
                                         ),
                                       ),
-                                    ),
                                     Padding(
                                       padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 4.0, 0.0),
